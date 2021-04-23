@@ -1,9 +1,13 @@
 import React from 'react';
 import {Text, View, TextInput} from 'react-native';
 import styles from './styles';
+import listCodes from './sh/codes';
 
 const WRONG = 'WRONG';
 const RIGHT = 'RIGHT';
+
+const WRONG_COLOR = '#f5222d';
+const RIGHT_COLOR = '#52c41a';
 
 const checkCode = code => {
   if (code.length !== 5) {
@@ -11,7 +15,7 @@ const checkCode = code => {
   }
   const num = parseInt(code, 10);
   if (num) {
-    return num % 5 === 0;
+    return listCodes.includes(num);
   }
   return false;
 };
@@ -35,7 +39,13 @@ const App = () => {
           autoCapitalize={false}
           maxLength={5}
         />
-        <Text style={styles.resultTxt}>{result}!</Text>
+        <Text
+          style={[
+            styles.resultTxt,
+            {color: result === WRONG ? WRONG_COLOR : RIGHT_COLOR},
+          ]}>
+          {result}!
+        </Text>
       </View>
     </View>
   );
